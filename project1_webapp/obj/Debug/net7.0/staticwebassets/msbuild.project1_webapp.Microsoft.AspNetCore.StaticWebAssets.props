@@ -976,5 +976,85 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\project1_webapp.bundle.scp.css))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\13249896-9e10-4b83-832b-b011277e3f2d_augmented-reality-aj41xyyvbh1eth98.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>project1_webapp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/project1_webapp</BasePath>
+      <RelativePath>uploads/13249896-9e10-4b83-832b-b011277e3f2d_augmented-reality-aj41xyyvbh1eth98.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\13249896-9e10-4b83-832b-b011277e3f2d_augmented-reality-aj41xyyvbh1eth98.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\18eef6d9-8996-4970-a3a7-cff4d90addef_augmented-reality-aj41xyyvbh1eth98.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>project1_webapp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/project1_webapp</BasePath>
+      <RelativePath>uploads/18eef6d9-8996-4970-a3a7-cff4d90addef_augmented-reality-aj41xyyvbh1eth98.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\18eef6d9-8996-4970-a3a7-cff4d90addef_augmented-reality-aj41xyyvbh1eth98.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\42c3c4d0-cc7d-4845-b391-08e1bddd6186_2a-nier-gf.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>project1_webapp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/project1_webapp</BasePath>
+      <RelativePath>uploads/42c3c4d0-cc7d-4845-b391-08e1bddd6186_2a-nier-gf.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\42c3c4d0-cc7d-4845-b391-08e1bddd6186_2a-nier-gf.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\c5c8f0a6-b313-445e-93d1-afd56e2c41af_augmented-reality-aj41xyyvbh1eth98.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>project1_webapp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/project1_webapp</BasePath>
+      <RelativePath>uploads/c5c8f0a6-b313-445e-93d1-afd56e2c41af_augmented-reality-aj41xyyvbh1eth98.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\c5c8f0a6-b313-445e-93d1-afd56e2c41af_augmented-reality-aj41xyyvbh1eth98.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\cfec139c-8cf4-41de-afb4-cefdea34e6a2_2a-nier-gf.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>project1_webapp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/project1_webapp</BasePath>
+      <RelativePath>uploads/cfec139c-8cf4-41de-afb4-cefdea34e6a2_2a-nier-gf.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\cfec139c-8cf4-41de-afb4-cefdea34e6a2_2a-nier-gf.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
   </ItemGroup>
 </Project>

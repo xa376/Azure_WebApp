@@ -245,6 +245,26 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\wwwroot\\uploads\\13249896-9e10-4b83-832b-b011277e3f2d_augmented-reality-aj41xyyvbh1eth98.jpg",
+      "PackagePath": "staticwebassets\\uploads\\13249896-9e10-4b83-832b-b011277e3f2d_augmented-reality-aj41xyyvbh1eth98.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\wwwroot\\uploads\\18eef6d9-8996-4970-a3a7-cff4d90addef_augmented-reality-aj41xyyvbh1eth98.jpg",
+      "PackagePath": "staticwebassets\\uploads\\18eef6d9-8996-4970-a3a7-cff4d90addef_augmented-reality-aj41xyyvbh1eth98.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\wwwroot\\uploads\\42c3c4d0-cc7d-4845-b391-08e1bddd6186_2a-nier-gf.jpg",
+      "PackagePath": "staticwebassets\\uploads\\42c3c4d0-cc7d-4845-b391-08e1bddd6186_2a-nier-gf.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\wwwroot\\uploads\\c5c8f0a6-b313-445e-93d1-afd56e2c41af_augmented-reality-aj41xyyvbh1eth98.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c5c8f0a6-b313-445e-93d1-afd56e2c41af_augmented-reality-aj41xyyvbh1eth98.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\wwwroot\\uploads\\cfec139c-8cf4-41de-afb4-cefdea34e6a2_2a-nier-gf.jpg",
+      "PackagePath": "staticwebassets\\uploads\\cfec139c-8cf4-41de-afb4-cefdea34e6a2_2a-nier-gf.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.project1_webapp.props",
       "PackagePath": "build\\project1_webapp.props"
     },
