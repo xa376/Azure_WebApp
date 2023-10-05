@@ -28,3 +28,6 @@ C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\ob
 C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.pdb
 C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.genruntimeconfig.cache
 C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\ref\project1_webapp.dll
+C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.csproj.AssemblyReference.cache
+C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.csproj.CopyComplete
