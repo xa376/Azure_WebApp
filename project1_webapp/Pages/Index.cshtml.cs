@@ -10,7 +10,6 @@ namespace project1_webapp.Pages {
         }
 
         public void OnGet() {
-            _logger.LogInformation("page opened");
         }
     }
 }

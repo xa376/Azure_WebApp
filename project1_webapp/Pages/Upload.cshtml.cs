@@ -1,102 +1,116 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
-using System.ComponentModel;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using System.Drawing;
+
 
 namespace project1_webapp.Pages {
 	public class UploadModel : PageModel {
 
 		[BindProperty]
+		public ImageAnalysis? visionResponse { get; set; }
+
+		[BindProperty]
 		public IFormFile UploadFile { get; set; }
 
-		private readonly ILogger<UploadModel> _logger;
+		[BindProperty]
+		public string imageDataUrl { get; set; }
 
-		public UploadModel(ILogger<UploadModel> logger) {
+		private readonly IMemoryCache _cache;
+		private readonly ILogger<UploadModel> _logger;
+		private readonly IConfiguration _configuration;
+
+		public UploadModel(ILogger<UploadModel> logger, IConfiguration configuration, IMemoryCache cache) {
 			_logger = logger;
+			_configuration = configuration;
+			_cache = cache;
 		}
 
-		// no result yet, let them upload
 		public void OnGet() {
-			//FileUploaded = JsonSerializer.Deserialize<IFormFile>(TempData["UploadedFile"] as string);
 
-			if (TempData["UploadedFile"] != null) {
-				_logger.LogInformation("passed success");
-				Console.WriteLine(TempData["UploadedFile"]);
+			// check for image
+			if (_cache.TryGetValue("ImageUrl", out string cachedImageDataUrl)) {
+				_cache.Remove("ImageUrl");
+				imageDataUrl = cachedImageDataUrl;
 			}
+
+			// check for image analysis results
+			if (TempData["VisionResponse"] != null) {
+				visionResponse = JsonConvert.DeserializeObject<ImageAnalysis?>((string)TempData["VisionResponse"]);
+			}
+
 		}
 
 		public async Task<IActionResult> OnPostAsync() {
 
-			if (UploadFile != null && UploadFile.Length > 0) {
+			// if upload button was pressed with a file verify valid file
+			if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
+				
+				// required to access vision service
+				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration["VisionKey"]);
+				var visionClient = new ComputerVisionClient(credentials) { Endpoint = _configuration["VisionEndpoint"] };
 
-				// Specify the folder where you want to store uploaded files
-				//var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+				// all features to get from vision service
+				List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>() {
+					VisualFeatureTypes.Description,
+					VisualFeatureTypes.Tags,
+					VisualFeatureTypes.Categories,
+					VisualFeatureTypes.Brands,
+					VisualFeatureTypes.Objects,
+					VisualFeatureTypes.Adult
+				};
 
-				// Create the folder if it doesn't exist
-				//Directory.CreateDirectory(uploadsFolder);
+				// TODO resize file if too large
+				// code within using analyzes image, draws boxes on found objects, and saves results
+				using (var imageData = UploadFile.OpenReadStream()) {
 
-				// Generate a unique file name (you can customize this)
-				//var uniqueFileName = Guid.NewGuid().ToString() + "_" + UploadFile.FileName;
+					// analyzes image
+					var analysis = await visionClient.AnalyzeImageInStreamAsync(imageData, features);
 
-				// Combine the folder path and file name
-				//var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+					// converts to Image
+					System.Drawing.Image image = System.Drawing.Image.FromStream(UploadFile.OpenReadStream());
 
-				// Save the uploaded file
-				//using (var stream = new FileStream(filePath, FileMode.Create)) {
-				//	await UploadFile.CopyToAsync(stream);
-				//}
+					// settings for boxes to draw around image objects
+					Graphics graphics = Graphics.FromImage(image);
+					Pen pen = new Pen(Color.Cyan, 3);
+					Font font = new Font("Arial", 16);
+					SolidBrush brush = new SolidBrush(Color.Black);
 
-				// send file for processing
-				// retrieve and upload page, passing returned json
-				//TempData["UploadedFile"] = "Testing Transfer";
+					// draws boxes and labels around image objects
+					foreach (var detectedObject in analysis.Objects) {
+						var r = detectedObject.Rectangle;
+						Rectangle rect = new Rectangle(r.X, r.Y, r.W, r.H);
+						graphics.DrawRectangle(pen, rect);
+						graphics.DrawString(detectedObject.ObjectProperty, font, brush, r.X, r.Y);
+					}
 
-				using (var httpClient = new HttpClient()) {
+					// attempts to save the new image and turn it into a url for display in page
+					using (var memoryStream = new MemoryStream()) {
+						try {
+							image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+						} catch {}
+							var bytes = memoryStream.ToArray();
+							var base64String = Convert.ToBase64String(bytes);
+							imageDataUrl = $"data:image/jpg;base64,{base64String}";
+					}
 
-					var queryParams = new Dictionary<string, string> { 
-						{ "visualFeatures", "Description,Tags,Objects" } // Replace with the desired features.
+					// option to ensure timely deletion from cache
+					var cacheEntryOptions = new MemoryCacheEntryOptions {
+						AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
 					};
 
-					var uriBuilder = new UriBuilder(@"https://multiaiservices-xh1.cognitiveservices.azure.com/vision/v3.1/analyze");
-					uriBuilder.Query = string.Join("&", queryParams.Select(x => $"{x.Key}={Uri.EscapeDataString(x.Value)}"));
-					//var requestString = "{\"authCode\": \"0000000001Nk1EEhZ3pZ73z700271891\" }";
-					httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", KEY_GOES_HERE);
-					// Setup the HttpClient and make the call and get the relevant data.
-					//httpClient.BaseAddress = new Uri("https://multiaiservices-xh1.cognitiveservices.azure.com");
-					//string theUrl = @"https://multiaiservices-xh1.cognitiveservices.azure.com/vision/v3.1/analyze";
-					//var request = new HttpRequestMessage(HttpMethod.Post, $"/vision/v3.1/analyze");
-					var content = new MultipartFormDataContent();
-					content.Add(new StreamContent(UploadFile.OpenReadStream()), "Image");
-					//request.Content = content;
-					
-					var response = await httpClient.PostAsync(uriBuilder.Uri, content);
-					var responseContent = await response.Content.ReadAsStringAsync();
-					dynamic theObj = JsonConvert.DeserializeObject<dynamic>(responseContent);
-					Console.WriteLine(JsonConvert.SerializeObject(response.Headers.ToList()));
-					Console.WriteLine(theObj);
+					// adds visionResponse to TempData, and adds imageurl to cache because too large for TempData
+					_cache.Set("ImageUrl", imageDataUrl, cacheEntryOptions);
+					TempData["VisionResponse"] = JsonConvert.SerializeObject(analysis);
 
-					foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(theObj)) {
-						Console.WriteLine("PROP: " + prop.Name);
-					}
-					Console.WriteLine(theObj.description["captions"][0]["text"]);
-
-					if (response.IsSuccessStatusCode) {
-						Console.WriteLine("Successful");
-						Console.WriteLine(responseContent);
-					} else {
-						Console.WriteLine("Not successful");
-					}
-
-					// TODO
-					// now place data in object
-					// pass data to next page for display
 				}
 
-				// Redirect to a success page or display a success message
-				//return RedirectToPage("/Upload", new { FileUploaded = true });
-				return Page();
+				return RedirectToPage("/Upload");
 			}
 
-			// Handle invalid file uploads
 			return Page();
 		}
 
