@@ -1,6 +1,21 @@
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// key vault settings
+var keyVaultUri = new Uri("https://projectkeysxh1.vault.azure.net");
+var secretClient = new SecretClient(keyVaultUri, new DefaultAzureCredential());
+
+// retrieves the vision api key from keyvault
+var secretResponse = await secretClient.GetSecretAsync("vision");
+var apiKey = secretResponse.Value.Value;
+
+// sets configuration for vision service
+builder.Configuration["VisionKey"] = apiKey;
+builder.Configuration["VisionEndpoint"] = "https://multiaiservices-xh1.cognitiveservices.azure.com";
+
+builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -1,0 +1,56 @@
+
+@page
+@using Microsoft.Extensions.Caching.Memory
+@model UploadModel
+@inject IConfiguration Configuration
+@inject IMemoryCache MemoryCache
+@{
+    ViewData["Title"] = "Image Analysis";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to upload an image for analysis. Your image will not be saved.</p>
+<p>Currently accepts jpg and png formats.</p>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="UploadFile" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+    <div></div>
+
+    @if (Model.imageDataUrl != null) {
+
+        if (Model.imageDataUrl == "data:image/jpg;base64,") {
+            <h2>Could not display this image. Try a different image.</h2>
+        } else {
+            <img src="@Model.imageDataUrl" />
+        }
+
+	}
+
+    @if (Model.visionResponse != null && Model.visionResponse.RequestId != null) {
+        
+        <h4>Generated Description</h4>
+
+        if (Model.visionResponse.Description.Captions != null) { 
+            foreach (var item in Model.visionResponse.Description.Captions) {
+                <div>Description: @item.Text</div>
+                <div>Description Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+            }
+        }
+
+        <h4>Image Tags Predictions</h4>
+
+        foreach (var item in Model.visionResponse.Tags) {
+            <div>Name: (@item.Name) - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        }
+
+        <h4>Image Object Predictions</h4>
+
+        foreach (var item in Model.visionResponse.Objects) {
+            <div>Object: (@item.ObjectProperty) - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        }
+
+    }
+
+</form>
