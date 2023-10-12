@@ -50,8 +50,8 @@ namespace project1_webapp.Pages {
 			if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
 				
 				// required to access vision service
-				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration["VisionKey"]);
-				var visionClient = new ComputerVisionClient(credentials) { Endpoint = _configuration["VisionEndpoint"] };
+				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration["AIKey"]);
+				var visionClient = new ComputerVisionClient(credentials) { Endpoint = _configuration["AIEndpoint"] };
 
 				// all features to get from vision service
 				List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>() {

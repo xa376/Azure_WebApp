@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "W829ZNZXil2qJZdFc7gufeMENDkpKfk8z7HOhBjNEH8C5E3TYOZNQgNLM24R+tGNqIBgxUrqsqjoWYDqDl+G2Q==",
+  "dgSpecHash": "mlzp/Pzk8z0Ejx5zdKpUdPiTeT8lTRwg8yy3tpGU+juIe7QU0Zus2h5zWgnL/Ola54FxGgpbfnY7B+N+QDK9JA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Xavier\\.nuget\\packages\\azure.ai.textanalytics\\5.3.0\\azure.ai.textanalytics.5.3.0.nupkg.sha512",
     "C:\\Users\\Xavier\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Xavier\\.nuget\\packages\\azure.identity\\1.10.1\\azure.identity.1.10.1.nupkg.sha512",
     "C:\\Users\\Xavier\\.nuget\\packages\\azure.security.keyvault.secrets\\4.5.0\\azure.security.keyvault.secrets.4.5.0.nupkg.sha512",

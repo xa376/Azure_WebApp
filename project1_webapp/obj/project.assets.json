@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     "net7.0": {
+      "Azure.AI.TextAnalytics/5.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.33.0",
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
+          "System.Text.Json": "4.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.AI.TextAnalytics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.AI.TextAnalytics.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.35.0": {
         "type": "package",
         "dependencies": {
@@ -1780,6 +1798,22 @@
     }
   },
   "libraries": {
+    "Azure.AI.TextAnalytics/5.3.0": {
+      "sha512": "QFGaADxfpEcvUPGqIo2CaXUiR00JN1sU14cgmo4wLgizP7v5WGJT9DYqFrzOBPO/tDYaup9mE4secRahe5xVcw==",
+      "type": "package",
+      "path": "azure.ai.textanalytics/5.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.ai.textanalytics.5.3.0.nupkg.sha512",
+        "azure.ai.textanalytics.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.AI.TextAnalytics.dll",
+        "lib/netstandard2.0/Azure.AI.TextAnalytics.xml"
+      ]
+    },
     "Azure.Core/1.35.0": {
       "sha512": "hENcx03Jyuqv05F4RBEPbxz29UrM3Nbhnr6Wl6NQpoU9BCIbL3XLentrxDCTrH54NLS11Exxi/o8MYgT/cnKFA==",
       "type": "package",
@@ -5910,6 +5944,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Azure.AI.TextAnalytics >= 5.3.0",
       "Azure.Identity >= 1.10.1",
       "Azure.Security.KeyVault.Secrets >= 4.5.0",
       "Microsoft.Azure.CognitiveServices.Vision.ComputerVision >= 7.0.1",
@@ -5963,6 +5998,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Azure.AI.TextAnalytics": {
+            "target": "Package",
+            "version": "[5.3.0, )"
+          },
           "Azure.Identity": {
             "target": "Package",
             "version": "[1.10.1, )"
