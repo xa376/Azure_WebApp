@@ -12,8 +12,8 @@ var secretResponse = await secretClient.GetSecretAsync("vision");
 var apiKey = secretResponse.Value.Value;
 
 // sets configuration for vision service
-builder.Configuration["VisionKey"] = apiKey;
-builder.Configuration["VisionEndpoint"] = "https://multiaiservices-xh1.cognitiveservices.azure.com";
+builder.Configuration["AIKey"] = apiKey;
+builder.Configuration["AIEndpoint"] = "https://multiaiservices-xh1.cognitiveservices.azure.com";
 
 builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();

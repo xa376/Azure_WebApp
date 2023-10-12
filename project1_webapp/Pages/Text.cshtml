@@ -1,0 +1,41 @@
+﻿@page
+@using Azure.AI.TextAnalytics;
+@model project1_webapp.Pages.TextModel
+@{
+    ViewData["Title"] = "Text Analysis";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    Input text to be analyzed here.
+    It may take a few seconds after clicking submit.
+</p>
+<form method="post">
+    <div class="form-group">
+        <textarea id="inputText" name="userText" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@if (Model.userText != null) {
+    <h4>Text Analyzed</h4>
+    <div>@Model.userText</div>
+}
+
+@if (Model.summary != null) {
+    <h4>Text Summary</h4>
+    <div>@Model.summary</div>
+}
+
+@if (Model.keyPhrases != null && Model.keyPhrases.Count > 0) {
+    <h4>Key Phrases</h4>
+    foreach (var phrase in Model.keyPhrases) {
+        <div>-@phrase</div>
+    }
+}
+@if (Model.sentiment != null) {
+    <h4>Sentiment Analysis</h4>
+    <div>Sentiment: @Model.sentiment</div>
+    <div>Positive: %@Math.Round(Model.positiveScore*100, 2)</div>
+    <div>Negative: %@Math.Round(Model.negativeScore*100, 2)</div>
+    <div>Neutral: %@Math.Round(Model.neutralScore*100, 2)</div>
+}

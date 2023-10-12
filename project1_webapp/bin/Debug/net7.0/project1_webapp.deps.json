@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "project1_webapp/1.0.0": {
         "dependencies": {
+          "Azure.AI.TextAnalytics": "5.3.0",
           "Azure.Identity": "1.10.1",
           "Azure.Security.KeyVault.Secrets": "4.5.0",
           "Microsoft.Azure.CognitiveServices.Vision.ComputerVision": "7.0.1",
@@ -17,6 +18,19 @@
         },
         "runtime": {
           "project1_webapp.dll": {}
+        }
+      },
+      "Azure.AI.TextAnalytics/5.3.0": {
+        "dependencies": {
+          "Azure.Core": "1.35.0",
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
+          "System.Text.Json": "4.7.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.AI.TextAnalytics.dll": {
+            "assemblyVersion": "5.3.0.0",
+            "fileVersion": "5.300.23.31903"
+          }
         }
       },
       "Azure.Core/1.35.0": {
@@ -920,6 +934,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Azure.AI.TextAnalytics/5.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QFGaADxfpEcvUPGqIo2CaXUiR00JN1sU14cgmo4wLgizP7v5WGJT9DYqFrzOBPO/tDYaup9mE4secRahe5xVcw==",
+      "path": "azure.ai.textanalytics/5.3.0",
+      "hashPath": "azure.ai.textanalytics.5.3.0.nupkg.sha512"
     },
     "Azure.Core/1.35.0": {
       "type": "package",
