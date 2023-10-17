@@ -24,10 +24,13 @@
     if (Model.imageDataUrl == "data:image/jpg;base64,") {
         <h2>Could not display this image. Try a different image.</h2>
     } else {
-        <img src="@Model.imageDataUrl" />
+        <img class="img-thumbnail" src="@Model.imageDataUrl"
+        onmouseover='this.src="@Model.imageDataWithObjectUrl"'
+        onmouseout='this.src="@Model.imageDataUrl"' />
     }
 
 }
+
 
 @if (Model.visionResponse != null && Model.visionResponse.RequestId != null) {
         

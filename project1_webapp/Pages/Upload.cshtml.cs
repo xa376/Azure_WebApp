@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Drawing;
-
+using System.Net.Sockets;
+using System.Drawing.Imaging;
 
 namespace project1_webapp.Pages {
 	public class UploadModel : PageModel {
@@ -18,8 +19,9 @@ namespace project1_webapp.Pages {
 
 		[BindProperty]
 		public string imageDataUrl { get; set; }
-
-		private readonly IMemoryCache _cache;
+        [BindProperty]
+        public string imageDataWithObjectUrl { get; set; }
+        private readonly IMemoryCache _cache;
 		private readonly ILogger<UploadModel> _logger;
 		private readonly IConfiguration _configuration;
 
@@ -30,17 +32,6 @@ namespace project1_webapp.Pages {
 		}
 
 		public void OnGet() {
-
-			// check for image
-			if (_cache.TryGetValue("ImageUrl", out string cachedImageDataUrl)) {
-				_cache.Remove("ImageUrl");
-				imageDataUrl = cachedImageDataUrl;
-			}
-
-			// check for image analysis results
-			if (TempData["VisionResponse"] != null) {
-				visionResponse = JsonConvert.DeserializeObject<ImageAnalysis?>((string)TempData["VisionResponse"]);
-			}
 
 		}
 
@@ -66,13 +57,18 @@ namespace project1_webapp.Pages {
 				// TODO resize file if too large
 				// code within using analyzes image, draws boxes on found objects, and saves results
 				using (var imageData = UploadFile.OpenReadStream()) {
-
-					// analyzes image
-					var analysis = await visionClient.AnalyzeImageInStreamAsync(imageData, features);
-
-					// converts to Image
-					System.Drawing.Image image = System.Drawing.Image.FromStream(UploadFile.OpenReadStream());
-
+					using (var memoryStream = new MemoryStream())
+					{
+						imageData.CopyTo(memoryStream);
+						// analyzes image
+						
+						var analysis = await visionClient.AnalyzeImageInStreamAsync(new MemoryStream(memoryStream.ToArray()), features);
+					
+						var thumbnailStream = await visionClient.GenerateThumbnailInStreamAsync(400, 400, new MemoryStream(memoryStream.ToArray()), true);
+						// converts to Image
+						
+						System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(memoryStream.ToArray()));
+					
 					// settings for boxes to draw around image objects
 					Graphics graphics = Graphics.FromImage(image);
 					Pen pen = new Pen(Color.Cyan, 3);
@@ -86,33 +82,48 @@ namespace project1_webapp.Pages {
 						graphics.DrawRectangle(pen, rect);
 						graphics.DrawString(detectedObject.ObjectProperty, font, brush, r.X, r.Y);
 					}
+						
+						using (var ms = new MemoryStream()) {
+                            new Bitmap(image, 400, 400).Save(ms, ImageFormat.Jpeg);
+                            var base64String = Convert.ToBase64String(ms.ToArray());
+                            imageDataWithObjectUrl = $"data:image/jpg;base64,{base64String}";
+                        }
 
+                        using (var ms = new MemoryStream())
+                        {
+                            thumbnailStream.CopyTo(ms);
+                            var base64String = Convert.ToBase64String(ms.ToArray());
+                            imageDataUrl = $"data:image/jpg;base64,{base64String}";
+                        }
+                        visionResponse = analysis;
+                    }
+
+                    
+                  
+                    
 					// attempts to save the new image and turn it into a url for display in page
-					using (var memoryStream = new MemoryStream()) {
-						try {
-							image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-						} catch {}
-							var bytes = memoryStream.ToArray();
-							var base64String = Convert.ToBase64String(bytes);
-							imageDataUrl = $"data:image/jpg;base64,{base64String}";
-					}
+					//using (var memoryStream = new MemoryStream())
+					//{
+					//	try
+					//	{
+					//		image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+					//	}
+					//	catch { }
+					//	var bytes = memoryStream.ToArray();
+
+					//}
 
 					// option to ensure timely deletion from cache
-					var cacheEntryOptions = new MemoryCacheEntryOptions {
-						AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
-					};
 
 					// adds visionResponse to TempData, and adds imageurl to cache because too large for TempData
-					_cache.Set("ImageUrl", imageDataUrl, cacheEntryOptions);
-					TempData["VisionResponse"] = JsonConvert.SerializeObject(analysis);
-
+					;
+					
 				}
-
-				return RedirectToPage("/Upload");
+				
 			}
 
 			return Page();
 		}
-
-	}
+       
+    }
 }

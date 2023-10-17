@@ -4,16 +4,16 @@ using Azure.Security.KeyVault.Secrets;
 var builder = WebApplication.CreateBuilder(args);
 
 // key vault settings
-var keyVaultUri = new Uri("https://projectkeysxh1.vault.azure.net");
-var secretClient = new SecretClient(keyVaultUri, new DefaultAzureCredential());
+//var keyVaultUri = new Uri("https://projectkeysxh1.vault.azure.net");
+//var secretClient = new SecretClient(keyVaultUri, new DefaultAzureCredential());
 
-// retrieves the vision api key from keyvault
-var secretResponse = await secretClient.GetSecretAsync("vision");
-var apiKey = secretResponse.Value.Value;
+//// retrieves the vision api key from keyvault
+//var secretResponse = await secretClient.GetSecretAsync("vision");
+//var apiKey = secretResponse.Value.Value;
 
 // sets configuration for vision service
-builder.Configuration["AIKey"] = apiKey;
-builder.Configuration["AIEndpoint"] = "https://multiaiservices-xh1.cognitiveservices.azure.com";
+builder.Configuration["AIKey"] = "9acd2d232e344878a8f57f9f5b36754c";
+builder.Configuration["AIEndpoint"] = "https://mssa2023.cognitiveservices.azure.com/";
 
 builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();
