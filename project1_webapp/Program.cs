@@ -1,5 +1,6 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 //var apiKey = secretResponse.Value.Value;
 
 // sets configuration for vision service
-builder.Configuration["AIKey"] = "9acd2d232e344878a8f57f9f5b36754c";
-builder.Configuration["AIEndpoint"] = "https://mssa2023.cognitiveservices.azure.com/";
+//builder.Configuration["AIKey"] = "";
+//builder.Configuration["AIEndpoint"] = "";
 
 builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(),true);
 
 var app = builder.Build();
 

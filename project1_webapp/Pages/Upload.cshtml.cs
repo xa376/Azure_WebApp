@@ -62,16 +62,19 @@ namespace project1_webapp.Pages {
 						imageData.CopyTo(memoryStream);
 						// analyzes image
 						
-						var analysis = await visionClient.AnalyzeImageInStreamAsync(new MemoryStream(memoryStream.ToArray()), features);
-					
-						var thumbnailStream = await visionClient.GenerateThumbnailInStreamAsync(400, 400, new MemoryStream(memoryStream.ToArray()), true);
-						// converts to Image
 						
-						System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(memoryStream.ToArray()));
+						var thumbnailStream = await visionClient.GenerateThumbnailInStreamAsync(800, 800, new MemoryStream(memoryStream.ToArray()), true);
+						// converts to Image
+						MemoryStream ms = new MemoryStream();
+						await thumbnailStream.CopyToAsync(ms);
+
+                        var analysis = await visionClient.AnalyzeImageInStreamAsync(new MemoryStream(ms.ToArray()), features);
+                        visionResponse = analysis;
+                        System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(ms.ToArray()));
 					
 					// settings for boxes to draw around image objects
 					Graphics graphics = Graphics.FromImage(image);
-					Pen pen = new Pen(Color.Cyan, 3);
+					Pen pen = new Pen(Color.Cyan, 8);
 					Font font = new Font("Arial", 16);
 					SolidBrush brush = new SolidBrush(Color.Black);
 
@@ -82,20 +85,20 @@ namespace project1_webapp.Pages {
 						graphics.DrawRectangle(pen, rect);
 						graphics.DrawString(detectedObject.ObjectProperty, font, brush, r.X, r.Y);
 					}
-						
-						using (var ms = new MemoryStream()) {
-                            new Bitmap(image, 400, 400).Save(ms, ImageFormat.Jpeg);
-                            var base64String = Convert.ToBase64String(ms.ToArray());
-                            imageDataWithObjectUrl = $"data:image/jpg;base64,{base64String}";
+
+						using (var ms2 = new MemoryStream())
+						{ 
+							image.Save(ms2, ImageFormat.Jpeg);
+							var base64String = Convert.ToBase64String(ms2.ToArray());
+							imageDataWithObjectUrl = $"data:image/jpg;base64,{base64String}";
                         }
 
-                        using (var ms = new MemoryStream())
+                        using (var ms3 = new MemoryStream())
                         {
-                            thumbnailStream.CopyTo(ms);
                             var base64String = Convert.ToBase64String(ms.ToArray());
                             imageDataUrl = $"data:image/jpg;base64,{base64String}";
                         }
-                        visionResponse = analysis;
+                        
                     }
 
                     
