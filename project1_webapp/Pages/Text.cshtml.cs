@@ -6,30 +6,10 @@ using Newtonsoft.Json;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Reflection.Metadata;
 using System.Reflection;
-
-// TODO
-// create class for text stuff
+using project1_webapp.Models;
 
 namespace project1_webapp.Pages {
     public class TextModel : PageModel {
-
-        [BindProperty]
-        public List<string?> keyPhrases { get; set; }
-
-        [BindProperty]
-        public string sentiment { get; set; }
-
-        [BindProperty]
-        public double positiveScore { get; set; }
-
-        [BindProperty]
-        public double negativeScore { get; set; }
-
-        [BindProperty]
-        public double neutralScore { get; set; }
-
-        [BindProperty]
-        public string summary { get; set; }
 
         [BindProperty]
         public string userText { get; set; }
@@ -52,7 +32,7 @@ namespace project1_webapp.Pages {
             if (userText != null) {
 
                 // accessing language service
-                AzureKeyCredential credentials = new AzureKeyCredential(_configuration["AIKey"]);
+                AzureKeyCredential credentials = new AzureKeyCredential(_configuration.GetConnectionString("AIKey"));
                 Uri endpoint = new Uri(_configuration["AIEndpoint"]);
                 var aiClient = new TextAnalyticsClient(endpoint, credentials);
 
@@ -67,7 +47,9 @@ namespace project1_webapp.Pages {
                 var operation = await aiClient.StartAnalyzeActionsAsync(new List<string>() { userText }, actions);
                 await operation.WaitForCompletionAsync();
                 var summaryResult = operation.GetValues();
-                
+
+                TextAnalysisResult textAnalysisResult = new();
+
                 // assigns all the variables to their results
                 foreach (var page in summaryResult.AsPages()) {
                     foreach (var allResults in page.Values) {
@@ -76,7 +58,7 @@ namespace project1_webapp.Pages {
                         foreach (var result in allResults.ExtractKeyPhrasesResults) {
                             foreach (var documentResult in result.DocumentsResults) {
                                 foreach (var keyPhrase in documentResult.KeyPhrases) {
-                                    keyPhrases.Add(keyPhrase);
+                                    textAnalysisResult.KeyPhrases.Add(keyPhrase);
                                 }
                             }
                         }
@@ -84,10 +66,10 @@ namespace project1_webapp.Pages {
                         // assigns sentiment variables
                         foreach (var result in allResults.AnalyzeSentimentResults) {
                             foreach (var documentResult in result.DocumentsResults) {
-                                sentiment = documentResult.DocumentSentiment.Sentiment.ToString();
-                                positiveScore = documentResult.DocumentSentiment.ConfidenceScores.Positive;
-                                neutralScore = documentResult.DocumentSentiment.ConfidenceScores.Neutral;
-                                negativeScore = documentResult.DocumentSentiment.ConfidenceScores.Negative;
+                                textAnalysisResult.Sentiment = documentResult.DocumentSentiment.Sentiment.ToString();
+                                textAnalysisResult.PositiveScore = documentResult.DocumentSentiment.ConfidenceScores.Positive;
+                                textAnalysisResult.NeutralScore = documentResult.DocumentSentiment.ConfidenceScores.Neutral;
+                                textAnalysisResult.NegativeScore = documentResult.DocumentSentiment.ConfidenceScores.Negative;
                             }
                         }
 
@@ -95,13 +77,16 @@ namespace project1_webapp.Pages {
                         foreach (var result in allResults.AbstractiveSummarizeResults) {
                             foreach (var documentResult in result.DocumentsResults) {
                                 foreach (var sum in documentResult.Summaries) {
-                                    summary = sum.Text;
+                                    textAnalysisResult.Summary = sum.Text;
                                 }
                             }
                         }
                     }
                 }
-                
+
+                textAnalysisResult.UserText = userText;
+                HttpContext.Session.SetString("textAnalysisResult", JsonConvert.SerializeObject(textAnalysisResult));
+
             }
 
             return Page();

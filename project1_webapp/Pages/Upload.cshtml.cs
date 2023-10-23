@@ -17,10 +17,6 @@ namespace project1_webapp.Pages {
 		[BindProperty]
 		public IFormFile UploadFile { get; set; }
 
-		[BindProperty]
-		public string imageDataUrl { get; set; }
-        [BindProperty]
-        public string imageDataWithObjectUrl { get; set; }
         private readonly IMemoryCache _cache;
 		private readonly ILogger<UploadModel> _logger;
 		private readonly IConfiguration _configuration;
@@ -90,15 +86,15 @@ namespace project1_webapp.Pages {
 						{ 
 							image.Save(ms2, ImageFormat.Jpeg);
 							var base64String = Convert.ToBase64String(ms2.ToArray());
-							imageDataWithObjectUrl = $"data:image/jpg;base64,{base64String}";
+                            HttpContext.Session.SetString("imageDataWithObjectUrl", $"data:image/jpg;base64,{base64String}");
                         }
 
                         using (var ms3 = new MemoryStream())
                         {
                             var base64String = Convert.ToBase64String(ms.ToArray());
-                            imageDataUrl = $"data:image/jpg;base64,{base64String}";
+                            HttpContext.Session.SetString("imageDataUrl", $"data:image/jpg;base64,{base64String}");
                         }
-                        
+
                     };
 					
 				}

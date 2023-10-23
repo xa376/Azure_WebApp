@@ -1,5 +1,7 @@
 ﻿@page
 @using Azure.AI.TextAnalytics;
+@using project1_webapp.Models;
+@using Newtonsoft.Json;
 @model project1_webapp.Pages.TextModel
 @{
     ViewData["Title"] = "Text Analysis";
@@ -16,26 +18,31 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-@if (Model.userText != null) {
-    <h4>Text Analyzed</h4>
-    <div>@Model.userText</div>
-}
+@if (HttpContext.Session.TryGetValue("textAnalysisResult", out byte[] textAnalysisResultAsBytes)) {
 
-@if (Model.summary != null) {
-    <h4>Text Summary</h4>
-    <div>@Model.summary</div>
-}
+    TextAnalysisResult textAnalysisResult = JsonConvert.DeserializeObject<TextAnalysisResult>(System.Text.Encoding.Default.GetString(textAnalysisResultAsBytes));
 
-@if (Model.keyPhrases != null && Model.keyPhrases.Count > 0) {
-    <h4>Key Phrases</h4>
-    foreach (var phrase in Model.keyPhrases) {
-        <div>-@phrase</div>
+    @if (textAnalysisResult.UserText != null) {
+        <h4>Text Analyzed</h4>
+        <div>@textAnalysisResult.UserText</div>
     }
-}
-@if (Model.sentiment != null) {
-    <h4>Sentiment Analysis</h4>
-    <div>Sentiment: @Model.sentiment</div>
-    <div>Positive: %@Math.Round(Model.positiveScore*100, 2)</div>
-    <div>Negative: %@Math.Round(Model.negativeScore*100, 2)</div>
-    <div>Neutral: %@Math.Round(Model.neutralScore*100, 2)</div>
+
+    @if (textAnalysisResult.Summary != null) {
+        <h4>Text Summary</h4>
+        <div>@textAnalysisResult.Summary</div>
+    }
+
+    @if (textAnalysisResult.KeyPhrases != null && textAnalysisResult.KeyPhrases.Count > 0) {
+        <h4>Key Phrases</h4>
+        foreach (var phrase in textAnalysisResult.KeyPhrases) {
+            <div>-@phrase</div>
+        }
+    }
+    @if (textAnalysisResult.Sentiment != null) {
+        <h4>Sentiment Analysis</h4>
+        <div>Sentiment: @textAnalysisResult.Sentiment</div>
+        <div>Positive: %@Math.Round((double)textAnalysisResult.PositiveScore*100, 2)</div>
+        <div>Negative: %@Math.Round((double)textAnalysisResult.NegativeScore*100, 2)</div>
+        <div>Neutral: %@Math.Round((double)textAnalysisResult.NeutralScore*100, 2)</div>
+    }
 }

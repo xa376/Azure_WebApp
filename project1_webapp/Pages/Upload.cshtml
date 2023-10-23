@@ -25,14 +25,18 @@
     <div>@(System.Text.Encoding.Default.GetString(testString))</div>
 }
 
-@if (Model.imageDataUrl != null) {
+@if (HttpContext.Session.TryGetValue("imageDataUrl", out byte[] imageDataUrlAsBytes) && HttpContext.Session.TryGetValue("imageDataWithObjectUrl", out byte[] imageDataWithObjectUrlAsBytes)) {
 
-    if (Model.imageDataUrl == "data:image/jpg;base64,") {
+    string imageDataUrl = System.Text.Encoding.Default.GetString(imageDataUrlAsBytes);
+    string imageDataWithObjectUrl = System.Text.Encoding.Default.GetString(imageDataWithObjectUrlAsBytes);
+
+
+    if (imageDataUrl == "data:image/jpg;base64,") {
         <h2>Could not display this image. Try a different image.</h2>
     } else {
-        <img class="img-thumbnail" src="@Model.imageDataUrl"
-        onmouseover='this.src="@Model.imageDataWithObjectUrl"'
-        onmouseout='this.src="@Model.imageDataUrl"' />
+        <img class="img-thumbnail" src="@imageDataUrl"
+        onmouseover='this.src="@imageDataWithObjectUrl"'
+        onmouseout='this.src="@imageDataUrl"' />
     }
 }
 
