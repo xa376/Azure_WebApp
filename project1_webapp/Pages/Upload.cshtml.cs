@@ -5,21 +5,23 @@ using Newtonsoft.Json;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Drawing;
+using System.Net.Sockets;
+using System.Drawing.Imaging;
 
+// TODO
+// create images out of objects and put them next to object text
 
 namespace project1_webapp.Pages {
 	public class UploadModel : PageModel {
-
-		[BindProperty]
-		public ImageAnalysis? visionResponse { get; set; }
 
 		[BindProperty]
 		public IFormFile UploadFile { get; set; }
 
 		[BindProperty]
 		public string imageDataUrl { get; set; }
-
-		private readonly IMemoryCache _cache;
+        [BindProperty]
+        public string imageDataWithObjectUrl { get; set; }
+        private readonly IMemoryCache _cache;
 		private readonly ILogger<UploadModel> _logger;
 		private readonly IConfiguration _configuration;
 
@@ -30,24 +32,14 @@ namespace project1_webapp.Pages {
 		}
 
 		public void OnGet() {
+            Console.WriteLine(HttpContext.Session.GetString("test"));
+        }
 
-			// check for image
-			if (_cache.TryGetValue("ImageUrl", out string cachedImageDataUrl)) {
-				_cache.Remove("ImageUrl");
-				imageDataUrl = cachedImageDataUrl;
-			}
+        public async Task<IActionResult> OnPostAsync() {
+            HttpContext.Session.SetString("test", "The test string was gotten.");
 
-			// check for image analysis results
-			if (TempData["VisionResponse"] != null) {
-				visionResponse = JsonConvert.DeserializeObject<ImageAnalysis?>((string)TempData["VisionResponse"]);
-			}
-
-		}
-
-		public async Task<IActionResult> OnPostAsync() {
-
-			// if upload button was pressed with a file verify valid file
-			if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
+            // if upload button was pressed with a file verify valid file
+            if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
 				
 				// required to access vision service
 				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration["AIKey"]);
@@ -66,16 +58,25 @@ namespace project1_webapp.Pages {
 				// TODO resize file if too large
 				// code within using analyzes image, draws boxes on found objects, and saves results
 				using (var imageData = UploadFile.OpenReadStream()) {
+					using (var memoryStream = new MemoryStream())
+					{
+						imageData.CopyTo(memoryStream);
+						// analyzes image
+						
+						
+						var thumbnailStream = await visionClient.GenerateThumbnailInStreamAsync(800, 800, new MemoryStream(memoryStream.ToArray()), true);
+						// converts to Image
+						MemoryStream ms = new MemoryStream();
+						await thumbnailStream.CopyToAsync(ms);
 
-					// analyzes image
-					var analysis = await visionClient.AnalyzeImageInStreamAsync(imageData, features);
-
-					// converts to Image
-					System.Drawing.Image image = System.Drawing.Image.FromStream(UploadFile.OpenReadStream());
-
+                        var analysis = await visionClient.AnalyzeImageInStreamAsync(new MemoryStream(ms.ToArray()), features);
+						//visionResponse = analysis;
+						HttpContext.Session.SetString("visionResponse", JsonConvert.SerializeObject(analysis));
+                        System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(ms.ToArray()));
+					
 					// settings for boxes to draw around image objects
 					Graphics graphics = Graphics.FromImage(image);
-					Pen pen = new Pen(Color.Cyan, 3);
+					Pen pen = new Pen(Color.Cyan, 8);
 					Font font = new Font("Arial", 16);
 					SolidBrush brush = new SolidBrush(Color.Black);
 
@@ -87,32 +88,27 @@ namespace project1_webapp.Pages {
 						graphics.DrawString(detectedObject.ObjectProperty, font, brush, r.X, r.Y);
 					}
 
-					// attempts to save the new image and turn it into a url for display in page
-					using (var memoryStream = new MemoryStream()) {
-						try {
-							image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-						} catch {}
-							var bytes = memoryStream.ToArray();
-							var base64String = Convert.ToBase64String(bytes);
-							imageDataUrl = $"data:image/jpg;base64,{base64String}";
-					}
+						using (var ms2 = new MemoryStream())
+						{ 
+							image.Save(ms2, ImageFormat.Jpeg);
+							var base64String = Convert.ToBase64String(ms2.ToArray());
+							imageDataWithObjectUrl = $"data:image/jpg;base64,{base64String}";
+                        }
 
-					// option to ensure timely deletion from cache
-					var cacheEntryOptions = new MemoryCacheEntryOptions {
-						AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
-					};
-
-					// adds visionResponse to TempData, and adds imageurl to cache because too large for TempData
-					_cache.Set("ImageUrl", imageDataUrl, cacheEntryOptions);
-					TempData["VisionResponse"] = JsonConvert.SerializeObject(analysis);
-
+                        using (var ms3 = new MemoryStream())
+                        {
+                            var base64String = Convert.ToBase64String(ms.ToArray());
+                            imageDataUrl = $"data:image/jpg;base64,{base64String}";
+                        }
+                        
+                    };
+					
 				}
-
-				return RedirectToPage("/Upload");
+				
 			}
 
 			return Page();
 		}
-
-	}
-} 
+       
+    }
+}

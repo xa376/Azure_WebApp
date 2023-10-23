@@ -1,6 +1,8 @@
 
 @page
+@using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 @using Microsoft.Extensions.Caching.Memory
+@using Newtonsoft.Json;
 @model UploadModel
 @inject IConfiguration Configuration
 @inject IMemoryCache MemoryCache
@@ -19,22 +21,29 @@
     <div></div>
 </form>
 
+@if (HttpContext.Session.TryGetValue("test", out byte[] testString) ) {
+    <div>@(System.Text.Encoding.Default.GetString(testString))</div>
+}
+
 @if (Model.imageDataUrl != null) {
 
     if (Model.imageDataUrl == "data:image/jpg;base64,") {
         <h2>Could not display this image. Try a different image.</h2>
     } else {
-        <img src="@Model.imageDataUrl" />
+        <img class="img-thumbnail" src="@Model.imageDataUrl"
+        onmouseover='this.src="@Model.imageDataWithObjectUrl"'
+        onmouseout='this.src="@Model.imageDataUrl"' />
     }
-
 }
 
-@if (Model.visionResponse != null && Model.visionResponse.RequestId != null) {
-        
+@if (HttpContext.Session.TryGetValue("visionResponse", out byte[] visionResponseAsBytes)) {
+
+    ImageAnalysis? visionResponse = JsonConvert.DeserializeObject<ImageAnalysis>(System.Text.Encoding.Default.GetString(visionResponseAsBytes));
+
     <h4>Generated Description</h4>
 
-    if (Model.visionResponse.Description.Captions != null) { 
-        foreach (var item in Model.visionResponse.Description.Captions) {
+    if (visionResponse.Description.Captions != null) {
+        foreach (var item in visionResponse.Description.Captions) {
             <div>@item.Text</div>
             <div>Confidence: %@Math.Round(item.Confidence*100, 2)</div>
         }
@@ -42,15 +51,14 @@
 
     <h4>Image Tag Predictions</h4>
 
-    foreach (var item in Model.visionResponse.Tags) {
+    foreach (var item in visionResponse.Tags) {
         <div>@item.Name - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
     }
 
     <h4>Image Object Predictions</h4>
 
-    foreach (var item in Model.visionResponse.Objects) {
+    foreach (var item in visionResponse.Objects) {
         <div>@item.ObjectProperty - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
     }
 
 }
-

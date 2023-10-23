@@ -1,23 +1,29 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using System.Reflection;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// key vault settings
-var keyVaultUri = new Uri("https://projectkeysxh1.vault.azure.net");
-var secretClient = new SecretClient(keyVaultUri, new DefaultAzureCredential());
-
-// retrieves the vision api key from keyvault
-var secretResponse = await secretClient.GetSecretAsync("vision");
-var apiKey = secretResponse.Value.Value;
-
-// sets configuration for vision service
-builder.Configuration["AIKey"] = apiKey;
-builder.Configuration["AIEndpoint"] = "https://multiaiservices-xh1.cognitiveservices.azure.com";
+// TODO
+// add session persistence
 
 builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(),true);
 
+builder.Services.AddStackExchangeRedisCache(options => {
+    options.Configuration = builder.Configuration["RedisConnection"];
+    options.InstanceName = "project1cache";
+});
+
+builder.Services.AddSession(options => {
+    options.Cookie.Name = "AIEngineerSiteSession";
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
+// builder.Configuration["RedisConnection"]
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,5 +41,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseSession();
 
 app.Run();

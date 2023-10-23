@@ -7,6 +7,9 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Reflection.Metadata;
 using System.Reflection;
 
+// TODO
+// create class for text stuff
+
 namespace project1_webapp.Pages {
     public class TextModel : PageModel {
 
@@ -41,17 +44,6 @@ namespace project1_webapp.Pages {
 
         public void OnGet() {
 
-            // assign all the values if they're present
-            if (TempData["userText"] != null && TempData["keyPhrases"] != null) {
-                Console.WriteLine("in text analysis");
-                userText = (string)TempData["userText"];
-                keyPhrases = JsonConvert.DeserializeObject<List<string?>>((string)TempData["keyPhrases"]);
-                sentiment = (string)TempData["sentiment"];
-                positiveScore = double.Parse((string)TempData["positiveScore"]);
-                negativeScore = double.Parse((string)TempData["negativeScore"]);
-                neutralScore = double.Parse((string)TempData["neutralScore"]);
-                summary = (string)TempData["summary"];
-            }
 
         }
 
@@ -96,11 +88,6 @@ namespace project1_webapp.Pages {
                                 positiveScore = documentResult.DocumentSentiment.ConfidenceScores.Positive;
                                 neutralScore = documentResult.DocumentSentiment.ConfidenceScores.Neutral;
                                 negativeScore = documentResult.DocumentSentiment.ConfidenceScores.Negative;
-
-                                Console.WriteLine($"Sentiment: {documentResult.DocumentSentiment.Sentiment}");
-                                Console.WriteLine($"Positive: {documentResult.DocumentSentiment.ConfidenceScores.Positive}");
-                                Console.WriteLine($"Neutral: {documentResult.DocumentSentiment.ConfidenceScores.Neutral}");
-                                Console.WriteLine($"Negative: {documentResult.DocumentSentiment.ConfidenceScores.Negative}");
                             }
                         }
 
@@ -114,17 +101,7 @@ namespace project1_webapp.Pages {
                         }
                     }
                 }
-
-                // save all the values to temp
-                TempData["keyPhrases"] = JsonConvert.SerializeObject(keyPhrases);
-                TempData["sentiment"] = sentiment;
-                TempData["positiveScore"] = positiveScore.ToString();
-                TempData["negativeScore"] = negativeScore.ToString();
-                TempData["neutralScore"] = neutralScore.ToString();
-                TempData["summary"] = summary;
-                TempData["userText"] = userText;
                 
-                return RedirectToPage("/Text");
             }
 
             return Page();
