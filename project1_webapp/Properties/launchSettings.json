@@ -15,8 +15,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "AIEndpoint": "https://multiaiservices-xh1.cognitiveservices.azure.com/",
-        "AIKey": "79788f0317cd43c7931dbd5affb63db6",
-        "RedisConnection": "redis1project1xh1.redis.cache.windows.net:6380,password=mnRElEQzPXA5RtBDwTXOx0cGNlAchOfmPAzCaF7vYZY=,ssl=True,abortConnect=False"
+        "CUSTOMCONNSTR_AIKey": "79788f0317cd43c7931dbd5affb63db6",
+        "CUSTOMCONNSTR_RedisConnection": "redis1project1xh1.redis.cache.windows.net:6380,password=mnRElEQzPXA5RtBDwTXOx0cGNlAchOfmPAzCaF7vYZY=,ssl=True,abortConnect=False"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7088;http://localhost:5177"

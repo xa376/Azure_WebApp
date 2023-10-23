@@ -14,7 +14,7 @@ builder.Services.AddRazorPages();
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(),true);
 
 builder.Services.AddStackExchangeRedisCache(options => {
-    options.Configuration = builder.Configuration["RedisConnection"];
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
     options.InstanceName = "project1cache";
 });
 

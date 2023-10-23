@@ -40,9 +40,9 @@ namespace project1_webapp.Pages {
 
             // if upload button was pressed with a file verify valid file
             if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
-				
+
 				// required to access vision service
-				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration["AIKey"]);
+				ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(_configuration.GetConnectionString("AIKey"));
 				var visionClient = new ComputerVisionClient(credentials) { Endpoint = _configuration["AIEndpoint"] };
 
 				// all features to get from vision service
