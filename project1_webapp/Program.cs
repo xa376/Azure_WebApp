@@ -6,9 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// TODO
-// add session persistence
-
 builder.Services.AddMemoryCache();
 builder.Services.AddRazorPages();
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(),true);

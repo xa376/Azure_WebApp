@@ -32,11 +32,9 @@ namespace project1_webapp.Pages {
 		}
 
 		public void OnGet() {
-            Console.WriteLine(HttpContext.Session.GetString("test"));
         }
 
         public async Task<IActionResult> OnPostAsync() {
-            HttpContext.Session.SetString("test", "The test string was gotten.");
 
             // if upload button was pressed with a file verify valid file
             if (UploadFile != null && UploadFile.Length > 0 && (UploadFile.ContentType == "image/png" || UploadFile.ContentType == "image/jpeg")) {
