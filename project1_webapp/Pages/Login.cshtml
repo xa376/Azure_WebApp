@@ -1,0 +1,42 @@
+﻿@page
+@model project1_webapp.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>When this page grows up it will be a login page.</p>
+
+@if (!HttpContext.Session.TryGetValue("LoggedIn", out byte[] _))
+{
+    <a asp-page="/Users/Create" style="cursor: pointer">Create an account</a>
+
+    if (@Model.LoginFailed == true) {
+        <div style="color:red;">Username or password not found.</div>
+    } 
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="LoginName" class="control-label"></label>
+                    <input asp-for="LoginName" class="form-control" />
+                    <span asp-validation-for="LoginName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LoginPassword" class="control-label"></label>
+                    <input asp-for="LoginPassword" type="password" class="form-control" />
+                    <span asp-validation-for="LoginPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+} else {
+    <h4>You're already logged in!
+    <a asp-page="/Logout" asp-page-handler="OtherTask" style="cursor: pointer">Logout</a>
+    </h4>
+}

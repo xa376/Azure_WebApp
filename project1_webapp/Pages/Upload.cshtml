@@ -11,58 +11,66 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to upload an image for analysis. Your image will not be saved.</p>
-<p>Currently accepts jpg and png formats.</p>
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <input type="file" name="UploadFile" />
-    </div>
-    <button type="submit" class="btn btn-primary">Upload</button>
-    <div></div>
-</form>
+<div>Use this page to upload an image for analysis. Your image will not be saved.</div>
+<div>Currently accepts jpg and png formats.</div>
+<p></p>
 
-@if (HttpContext.Session.TryGetValue("test", out byte[] testString) ) {
-    <div>@(System.Text.Encoding.Default.GetString(testString))</div>
-}
+@if (HttpContext.Session.TryGetValue("LoggedIn", out byte[] _)) {
 
-@if (HttpContext.Session.TryGetValue("imageDataUrl", out byte[] imageDataUrlAsBytes) && HttpContext.Session.TryGetValue("imageDataWithObjectUrl", out byte[] imageDataWithObjectUrlAsBytes)) {
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="UploadFile" />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <div></div>
+    </form>
 
-    string imageDataUrl = System.Text.Encoding.Default.GetString(imageDataUrlAsBytes);
-    string imageDataWithObjectUrl = System.Text.Encoding.Default.GetString(imageDataWithObjectUrlAsBytes);
-
-
-    if (imageDataUrl == "data:image/jpg;base64,") {
-        <h2>Could not display this image. Try a different image.</h2>
-    } else {
-        <img class="img-thumbnail" src="@imageDataUrl"
-        onmouseover='this.src="@imageDataWithObjectUrl"'
-        onmouseout='this.src="@imageDataUrl"' />
+    @if (HttpContext.Session.TryGetValue("test", out byte[] testString) ) {
+        <div>@(System.Text.Encoding.Default.GetString(testString))</div>
     }
-}
 
-@if (HttpContext.Session.TryGetValue("visionResponse", out byte[] visionResponseAsBytes)) {
+    @if (HttpContext.Session.TryGetValue("imageDataUrl", out byte[] imageDataUrlAsBytes) && HttpContext.Session.TryGetValue("imageDataWithObjectUrl", out byte[] imageDataWithObjectUrlAsBytes)) {
 
-    ImageAnalysis? visionResponse = JsonConvert.DeserializeObject<ImageAnalysis>(System.Text.Encoding.Default.GetString(visionResponseAsBytes));
+        string imageDataUrl = System.Text.Encoding.Default.GetString(imageDataUrlAsBytes);
+        string imageDataWithObjectUrl = System.Text.Encoding.Default.GetString(imageDataWithObjectUrlAsBytes);
 
-    <h4>Generated Description</h4>
 
-    if (visionResponse.Description.Captions != null) {
-        foreach (var item in visionResponse.Description.Captions) {
-            <div>@item.Text</div>
-            <div>Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        if (imageDataUrl == "data:image/jpg;base64,") {
+            <h2>Could not display this image. Try a different image.</h2>
+        } else {
+            <img class="img-thumbnail" src="@imageDataUrl"
+            onmouseover='this.src="@imageDataWithObjectUrl"'
+            onmouseout='this.src="@imageDataUrl"' />
         }
     }
 
-    <h4>Image Tag Predictions</h4>
+    @if (HttpContext.Session.TryGetValue("visionResponse", out byte[] visionResponseAsBytes)) {
 
-    foreach (var item in visionResponse.Tags) {
-        <div>@item.Name - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        ImageAnalysis? visionResponse = JsonConvert.DeserializeObject<ImageAnalysis>(System.Text.Encoding.Default.GetString(visionResponseAsBytes));
+
+        <h4>Generated Description</h4>
+
+        if (visionResponse.Description.Captions != null) {
+            foreach (var item in visionResponse.Description.Captions) {
+                <div>@item.Text</div>
+                <div>Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+            }
+        }
+
+        <h4>Image Tag Predictions</h4>
+
+        foreach (var item in visionResponse.Tags) {
+            <div>@item.Name - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        }
+
+        <h4>Image Object Predictions</h4>
+
+        foreach (var item in visionResponse.Objects) {
+            <div>@item.ObjectProperty - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
+        }
+
     }
-
-    <h4>Image Object Predictions</h4>
-
-    foreach (var item in visionResponse.Objects) {
-        <div>@item.ObjectProperty - Confidence: %@Math.Round(item.Confidence*100, 2)</div>
-    }
-
+} else {
+    <h1>You must be logged in to use this resource.</h1>
+    <h1><a asp-page="/Login" style="cursor: pointer">Login here</a></h1>
 }

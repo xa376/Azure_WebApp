@@ -1,0 +1,39 @@
+﻿@page
+@model project1_webapp.Pages.Users.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Account</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User.UserName" class="control-label">Username</label>
+                <input asp-for="User.UserName" class="form-control" />
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>
+            @if (!Model.NameIsValid) { <div style="color:red;">Name must be between 5 and 30 characters inclusive and contain only alphanumeric characters.</div> }
+            @if (!Model.NameIsFree) { <div style="color:red;">Name is already taken.</div> }
+            <div class="form-group">
+                <label asp-for="UserPassword" class="control-label">Password</label>
+                <input asp-for="UserPassword" type="password" class="form-control" />
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
+            </div>
+            @if (!Model.PasswordIsValid) {
+                <div style="color:red;"> Password must be between 5 and 30 characters inclusive and contain only alphanumeric characters and the following special characters ~`! @@#$%^&*()_-+={[}]|\:;"'<,>.?/</div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

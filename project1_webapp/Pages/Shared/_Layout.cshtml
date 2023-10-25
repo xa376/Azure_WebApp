@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,6 +36,16 @@
                         </li>
                     </ul>
                 </div>
+                @if (HttpContextAccessor.HttpContext.Session.TryGetValue("LoggedIn", out byte[] _)) {
+                    string loggedInName = "friend";
+                    if (HttpContextAccessor.HttpContext.Session.TryGetValue("LoggedInName", out byte[] loggedInNameAsBytes)) {
+                        loggedInName = System.Text.Encoding.Default.GetString(loggedInNameAsBytes);
+                    }
+                    <div> Hello @loggedInName |&nbsp;</div>
+                    <a asp-page="/Logout" asp-page-handler="OtherTask" style="cursor: pointer">Logout</a>
+                } else {
+                    <a asp-page="/Login" asp-page-handler="OtherTask" style="cursor: pointer">Login</a>
+                }
             </div>
         </nav>
     </header>

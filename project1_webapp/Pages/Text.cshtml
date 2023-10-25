@@ -11,38 +11,44 @@
     Input text to be analyzed here.
     It may take a few seconds after clicking submit.
 </p>
-<form method="post">
-    <div class="form-group">
-        <textarea id="inputText" name="userText" class="form-control" rows="4"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
-@if (HttpContext.Session.TryGetValue("textAnalysisResult", out byte[] textAnalysisResultAsBytes)) {
+@if (HttpContext.Session.TryGetValue("LoggedIn", out byte[] _)) {
+    <form method="post">
+        <div class="form-group">
+            <textarea id="inputText" name="userText" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-    TextAnalysisResult textAnalysisResult = JsonConvert.DeserializeObject<TextAnalysisResult>(System.Text.Encoding.Default.GetString(textAnalysisResultAsBytes));
+    @if (HttpContext.Session.TryGetValue("textAnalysisResult", out byte[] textAnalysisResultAsBytes)) {
 
-    @if (textAnalysisResult.UserText != null) {
-        <h4>Text Analyzed</h4>
-        <div>@textAnalysisResult.UserText</div>
-    }
+        TextAnalysisResult textAnalysisResult = JsonConvert.DeserializeObject<TextAnalysisResult>(System.Text.Encoding.Default.GetString(textAnalysisResultAsBytes));
 
-    @if (textAnalysisResult.Summary != null) {
-        <h4>Text Summary</h4>
-        <div>@textAnalysisResult.Summary</div>
-    }
+        @if (textAnalysisResult.UserText != null) {
+            <h4>Text Analyzed</h4>
+            <div>@textAnalysisResult.UserText</div>
+        }
 
-    @if (textAnalysisResult.KeyPhrases != null && textAnalysisResult.KeyPhrases.Count > 0) {
-        <h4>Key Phrases</h4>
-        foreach (var phrase in textAnalysisResult.KeyPhrases) {
-            <div>-@phrase</div>
+        @if (textAnalysisResult.Summary != null) {
+            <h4>Text Summary</h4>
+            <div>@textAnalysisResult.Summary</div>
+        }
+
+        @if (textAnalysisResult.KeyPhrases != null && textAnalysisResult.KeyPhrases.Count > 0) {
+            <h4>Key Phrases</h4>
+            foreach (var phrase in textAnalysisResult.KeyPhrases) {
+                <div>-@phrase</div>
+            }
+        }
+        @if (textAnalysisResult.Sentiment != null) {
+            <h4>Sentiment Analysis</h4>
+            <div>Sentiment: @textAnalysisResult.Sentiment</div>
+            <div>Positive: %@Math.Round((double)textAnalysisResult.PositiveScore*100, 2)</div>
+            <div>Negative: %@Math.Round((double)textAnalysisResult.NegativeScore*100, 2)</div>
+            <div>Neutral: %@Math.Round((double)textAnalysisResult.NeutralScore*100, 2)</div>
         }
     }
-    @if (textAnalysisResult.Sentiment != null) {
-        <h4>Sentiment Analysis</h4>
-        <div>Sentiment: @textAnalysisResult.Sentiment</div>
-        <div>Positive: %@Math.Round((double)textAnalysisResult.PositiveScore*100, 2)</div>
-        <div>Negative: %@Math.Round((double)textAnalysisResult.NegativeScore*100, 2)</div>
-        <div>Neutral: %@Math.Round((double)textAnalysisResult.NeutralScore*100, 2)</div>
-    }
+} else {
+    <h1>You must be logged in to use this resource.</h1>
+    <h1><a asp-page="/Login" style="cursor: pointer">Login here</a></h1>
 }
