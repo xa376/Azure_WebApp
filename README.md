@@ -5,6 +5,8 @@ Features:\
 &emsp;-Azure hosted site\
 &emsp;-CI/CD to this repositories main\
 &emsp;-Managed Identity integration\
+&emsp;-Redis caching\
+&emsp;-MS SQL Server managing user credentials\
 &emsp;-KeyVault integration\
 &emsp;-Analysis utilizing Azure AI
 
