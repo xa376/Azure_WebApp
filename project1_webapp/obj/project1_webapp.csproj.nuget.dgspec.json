@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj": {}
+    "C:\\Users\\Xavier\\Desktop\\DesktopOld\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj": {
+    "C:\\Users\\Xavier\\Desktop\\DesktopOld\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj",
+        "projectUniqueName": "C:\\Users\\Xavier\\Desktop\\DesktopOld\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj",
         "projectName": "project1_webapp",
-        "projectPath": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj",
+        "projectPath": "C:\\Users\\Xavier\\Desktop\\DesktopOld\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\project1_webapp.csproj",
         "packagesPath": "C:\\Users\\Xavier\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Xavier\\Desktop\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\obj\\",
+        "outputPath": "C:\\Users\\Xavier\\Desktop\\DesktopOld\\Projects\\Project1_all\\project1_webapp\\project1_webapp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,7 +51,7 @@
             },
             "Azure.Identity": {
               "target": "Package",
-              "version": "[1.10.1, )"
+              "version": "[1.10.4, )"
             },
             "Azure.Security.KeyVault.Secrets": {
               "target": "Package",
@@ -111,7 +111,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

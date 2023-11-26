@@ -1,0 +1,35 @@
+﻿@page
+@model project1_webapp.Pages.ImageModel
+
+@{
+    ViewData["Title"] = "Image Generation";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>Here you can try out image generation using OpenAI and Dall-e-3.</div>
+<div>Please wait 1 minute between each image generation request, thank you.</div>
+
+@if (HttpContext.Session.TryGetValue("LoggedIn", out byte[] _)) {
+
+    <form method="post">
+        <div class="form-group">
+            <textarea id="inputText" name="userText" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    if (HttpContext.Session.TryGetValue("RateLimitHit", out byte[] _)) {
+        <h3>Rate limit hit. Please try again soon.</h3>
+        HttpContext.Session.Remove("RateLimitHit");
+    }
+
+    if (HttpContext.Session.TryGetValue("DalleImageURL", out byte[] imageUrlAsBytes)) {
+
+        string imageUrl = System.Text.Encoding.Default.GetString(imageUrlAsBytes);
+        <img class="img-thumbnail" src="@imageUrl" />
+
+    }
+} else {
+        <h1>You must be logged in to use this resource.</h1>
+        <h1><a asp-page="/Login" style="cursor: pointer">Login here</a></h1>
+}

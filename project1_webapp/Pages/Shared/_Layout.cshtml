@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Text">Text Analysis</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Image">Image Generation</a>
+                        </li>
                     </ul>
                 </div>
                 @if (HttpContextAccessor.HttpContext.Session.TryGetValue("LoggedIn", out byte[] _)) {

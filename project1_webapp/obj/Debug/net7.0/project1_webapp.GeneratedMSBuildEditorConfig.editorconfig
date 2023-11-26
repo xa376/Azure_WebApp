@@ -9,57 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = project1_webapp
 build_property.RootNamespace = project1_webapp
-build_property.ProjectDir = C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp\
+build_property.ProjectDir = C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Xavier\Desktop\Projects\Project1_all\project1_webapp\project1_webapp
+build_property.MSBuildProjectDirectory = C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Error.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Index.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Image.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW1hZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Login.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Logout.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Text.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Text.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGV4dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Upload.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Upload.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXBsb2FkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Users/Create.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Video.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Video.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlkZW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/_ViewImports.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/_ViewStart.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Xavier/Desktop/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Shared/_Layout.cshtml]
+[C:/Users/Xavier/Desktop/DesktopOld/Projects/Project1_all/project1_webapp/project1_webapp/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-2zu0djbtqa
