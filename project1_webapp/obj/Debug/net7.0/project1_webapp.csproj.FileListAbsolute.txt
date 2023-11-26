@@ -578,3 +578,15 @@ C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project
 C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.pdb
 C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\project1_webapp.genruntimeconfig.cache
 C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\obj\Debug\net7.0\ref\project1_webapp.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Configuration.UserSecrets.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\System.Text.Encodings.Web.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\System.Text.Json.dll
+C:\Users\Xavier\Desktop\DesktopOld\Projects\Project1_all\project1_webapp\project1_webapp\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
