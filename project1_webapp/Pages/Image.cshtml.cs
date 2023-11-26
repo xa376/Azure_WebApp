@@ -34,7 +34,7 @@ namespace project1_webapp.Pages {
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                using (var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/images/generations")) {
+                using (var request = new HttpRequestMessage(HttpMethod.Post, _configuration["DalleEndpoint"])) {
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _configuration.GetConnectionString("OpenAIKey"));
                     string serializedImageRequest = JsonConvert.SerializeObject(new DalleImageRequest() { prompt = userText });
                     request.Content = new StringContent(serializedImageRequest,
