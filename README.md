@@ -8,6 +8,8 @@ Features:\
 &emsp;-Redis caching\
 &emsp;-MS SQL Server managing user credentials\
 &emsp;-KeyVault integration\
-&emsp;-Analysis utilizing Azure AI
+&emsp;-Analysis utilizing Azure AI\
+&emsp;-OpenAI Dall-e-3 image generation
+
 
 Very simple site to start displaying my Azure abilities.
